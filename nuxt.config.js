@@ -1,4 +1,5 @@
 module.exports = {
+  telemetry: false,
   mode: 'spa',
   server: {
     host: process.env.BASE_URL || '0.0.0.0',
@@ -45,7 +46,8 @@ module.exports = {
   ],
   bootstrapVue: {
     bootstrapCSS: false,
-    bootstrapVueCSS: false
+    bootstrapVueCSS: false,
+    icons: true
   },
   axios: {
     browserBaseURL: `//${process.env.BROWSER_URL}`
