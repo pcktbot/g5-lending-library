@@ -9,7 +9,7 @@ module.exports = (app) => {
   app.get('/api/v1/search', async (req, res) => {
     try {
       const books = await goodreads.search(req.query.phrase)
-      res.send(books)
+      res.json(books)
     } catch (err) {
       res.status(401).send('We got nothing.')
     }
