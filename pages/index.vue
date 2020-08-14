@@ -1,16 +1,18 @@
 <template>
-  <div >
-    <transition name="slide-fade" appear>
-      <octopus :size="`5em`" />
-    </transition>
-  </div>
+  <b-container>
+    <b-row>
+      <b-col>
+        <intake />
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
-import Octopus from '~/components/icons/octopus'
+import Intake from '~/components/intake'
 export default {
   components: {
-    Octopus
+    Intake
   }
 }
 </script>
