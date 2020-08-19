@@ -25,7 +25,7 @@ class Goodreads {
       .map((w) => {
         return {
           title: w.best_book[0].title[0],
-          author: w.best_book[0].author[0].name,
+          author: w.best_book[0].author[0].name[0],
           imgUrl: w.best_book[0].image_url[0],
           thumbnail: w.best_book[0].small_image_url[0]
         }

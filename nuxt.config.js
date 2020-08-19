@@ -14,17 +14,19 @@ module.exports = {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css2?family=Cutive+Mono&family=EB+Garamond:wght@400;700&display=swap' }
     ]
   },
-  loading: {
-    color: '#7898ad',
-    failedColor: '#ff0033',
-    continuous: true,
-    throttle: 300,
-    duration: 2000,
-    height: '4px'
-  },
+  loading: '@/components/loading.vue',
+  // loading: {
+  //   color: '#7898ad',
+  //   failedColor: '#ff0033',
+  //   continuous: true,
+  //   throttle: 300,
+  //   duration: 2000,
+  //   height: '4px'
+  // },
   loadingIndicator: {
     name: 'three-bounce',
     color: '#21222e',
