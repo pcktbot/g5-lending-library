@@ -15,7 +15,7 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css2?family=Cutive+Mono&family=EB+Garamond:wght@400;700&display=swap' }
+      { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400&family=EB+Garamond:wght@400;700&display=swap' }
     ]
   },
   loading: '@/components/loading.vue',

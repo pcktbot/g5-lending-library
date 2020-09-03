@@ -3,8 +3,8 @@ const path = require('path')
 const Sequelize = require('sequelize')
 
 const {
-  INCLUDE_G5_AUTH: includeAuth,
-  INCLUDE_G5_UPDATABLES: includeUpdatables,
+  // INCLUDE_G5_AUTH: includeAuth,
+  // INCLUDE_G5_UPDATABLES: includeUpdatables,
   DATABASE_URL: dbUrl,
   DATABASE_MAX_CONNECTIONS: max,
   DATABASE_MIN_CONNECTIONS: min,
@@ -38,15 +38,7 @@ const sequelize = new Sequelize(dbUrl, {
   logging: (logging === 'true')
 })
 
-// NOT SURE THIS WILL WORK, BUT IT SEEMS LIKE WE WOULD WANT TO OPTIONALIZE THESE
-const db = {
-  ...includeAuth ? require('@getg5/g5-auth').models(sequelize) : {},
-  ...includeUpdatables ? require('@getg5/g5-updatable').models(sequelize) : {}
-}
-
-// db.user.associate = (models) => {
-//   models.user.hasMany(models.seoAssignment, { foreignKey: 'userId', sourceKey: 'id' })
-// }
+const db = {}
 
 fs.readdirSync(__dirname)
   .filter(file => file.indexOf('.') !== 0 &&

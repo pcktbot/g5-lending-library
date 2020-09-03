@@ -14,7 +14,12 @@ module.exports = (app) => {
       res.status(401).send('We got nothing.')
     }
   })
-
-  // app.post()
-  // app.put()
+  app.post('/api/v1/save', async (req, res) => {
+    try {
+      const { body, user } = req
+      // await models.library.create()
+    } catch (err) {
+      res.status(503).send('Trouble saving to the Database.')
+    }
+  })
 }
