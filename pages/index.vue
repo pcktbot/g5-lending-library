@@ -5,6 +5,9 @@
         src="/spirit-animal.png"
         height="175"
       />
+      <b-btn class="taurus__btn" @click="fetchBooks">
+        <b-icon-arrow-clockwise />
+      </b-btn>
     </div>
     <b-row>
       <b-col>
@@ -14,6 +17,11 @@
         <b-btn block @click="isCollapsed = !isCollapsed">
           Show/Hide
         </b-btn>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        {{ library }}
       </b-col>
     </b-row>
   </b-container>
@@ -27,7 +35,17 @@ export default {
   },
   data() {
     return {
-      isCollapsed: false
+      isCollapsed: false,
+      library: []
+    }
+  },
+  methods: {
+    fetchBooks() {
+      this.$axios
+        .$get('api/v1/library')
+        .then((res) => {
+          this.library = res
+        })
     }
   }
 }
@@ -42,8 +60,10 @@ export default {
   z-index: 1;
   bottom: 0%;
   right: 0%;
-  opacity: 0.5;
-  pointer-events: none;
+  opacity: 0.75;
+  & img {
+    pointer-events: none;
+  }
   &__btn {
     position: absolute;
     left: 50%;

@@ -1,5 +1,13 @@
 <template>
   <b-card no-body>
+    <b-modal id="add-modal" centered @ok="addToLibrary">
+      <b-card>
+        You are adding {{ title }}.
+      <b-form-group label="Who are you?">
+        <b-form-input v-model="user" />
+      </b-form-group>
+      </b-card>
+    </b-modal>
     <b-form @submit="onSearch">
       <b-input-group class="bg-secondary border-secondary border">
         <template v-slot:prepend>
@@ -57,11 +65,13 @@ export default {
   data() {
     return {
       phrase: '',
+      user: null,
       fields: [
         { key: 'imgUrl', label: 'Thumbnail', sortable: false },
         { key: 'title', label: 'Title', sortable: true }
       ],
-      res: []
+      res: [],
+      title: ''
     }
   },
   methods: {
@@ -75,6 +85,16 @@ export default {
     },
     onAdd(evt) {
       console.log(evt)
+      this.title = evt
+      this.$bvModal.show('add-modal')
+    },
+    addToLibrary() {
+      if (this.user && this.title) {
+        this.$axios
+          .$post(`api/v1/save?owner=${this.user}&title=${this.title}&status=available`)
+          .then(res => console.log({ res }))
+          .catch(err => console.error(err))
+      }
     }
   }
 }
