@@ -1,7 +1,7 @@
 
 $theme-colors: (
   'primary': #0b233f,
-  'secondary': #616365,
+  'secondary': #dee7ed,
   'tertiary': #e8513e,
   'quaternary': #eee23e,
 );
@@ -26,6 +26,11 @@ $body-bg: RGBA(242, 242, 242, 1.00);
   & > .table.b-table > thead > tr > th {
     top: -1px !important;
   }
+}
+.card-columns {
+  column-count: 2;
+  column-gap: 0.25em;
+  grid-column-start: auto;
 }
 .flip-vertical-right {
   animation: flip-vertical-right 1s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;

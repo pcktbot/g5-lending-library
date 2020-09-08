@@ -1,5 +1,6 @@
 const Goodreads = require('../../controllers/goodreads')
 const models = require('../../models')
+const { Op } = models.Sequelize
 const {
   GOODREADS_KEY: key,
   GOODREADS_SECRET: secret
@@ -16,24 +17,43 @@ module.exports = (app) => {
     }
   })
 
+  app.delete('/api/v1/book/:id', async (req, res) => {
+    console.log(req.params.id)
+    await models.book.upsert({
+      id: req.params.id,
+      status: 'deleted'
+    })
+    res.sendStatus(200)
+  })
+
   app.get('/api/v1/library', async (req, res) => {
-    const books = await models.book.findAll()
+    const books = await models.book.findAll({
+      where: { status: { [Op.not]: 'deleted' } }
+    })
     res.json(books)
   })
 
   app.post('/api/v1/save', async (req, res) => {
     try {
-      console.log(req.query)
-      const { owner, title, status } = req.query
+      const {
+        owner,
+        book,
+        status
+      } = req.body
+      console.log({ owner, book, status })
       const record = await models.book.findOrCreate({
         defaults: {
           owner,
-          title,
+          title: book.title,
+          details: {
+            imgUrl: book.imgUrl
+          },
           status
         },
-        where: { title }
+        where: { title: book.title }
       })
       res.json(record)
+      // res.sendStatus(201)
     } catch (err) {
       console.error(err)
       res.status(503).send('Trouble saving to the Database.')

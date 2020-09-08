@@ -2,7 +2,7 @@
   <b-card no-body>
     <b-modal id="add-modal" centered @ok="addToLibrary">
       <b-card>
-        You are adding {{ title }}.
+        You are adding {{ book }}.
       <b-form-group label="Who are you?">
         <b-form-input v-model="user" />
       </b-form-group>
@@ -33,7 +33,7 @@
       sticky-header
       responsive
       class="border-secondary border"
-      style="max-height: calc(100vh - 80px);"
+      style="max-height: calc(100vh - 100px);"
     >
       <template v-slot:cell(imgUrl)="row">
           <b-img-lazy :src="row.item.imgUrl" />
@@ -49,7 +49,7 @@
           <b-btn
             class="anchor__btn"
             variant="outline-tertiary"
-            @click="onAdd(row.item.title)"
+            @click="onAdd(row.item)"
           >
             <b-icon-plus-circle />
             Add
@@ -71,7 +71,8 @@ export default {
         { key: 'title', label: 'Title', sortable: true }
       ],
       res: [],
-      title: ''
+      library: [],
+      book: {}
     }
   },
   methods: {
@@ -84,16 +85,20 @@ export default {
         })
     },
     onAdd(evt) {
-      console.log(evt)
-      this.title = evt
+      this.book = evt
       this.$bvModal.show('add-modal')
     },
     addToLibrary() {
-      if (this.user && this.title) {
+      if (this.user && this.book) {
         this.$axios
-          .$post(`api/v1/save?owner=${this.user}&title=${this.title}&status=available`)
-          .then(res => console.log({ res }))
-          .catch(err => console.error(err))
+          .$post('api/v1/save', {
+            book: this.book,
+            owner: this.user,
+            status: 'available'
+          })
+          .then((res) => {
+            this.library = res
+          })
       }
     }
   }
