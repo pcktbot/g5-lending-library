@@ -17,10 +17,10 @@ module.exports = (app) => {
     }
   })
 
-  app.delete('/api/v1/book/:id', async (req, res) => {
+  app.put('/api/v1/book/:id', async (req, res) => {
     console.log(req.params.id)
-    await models.book.upsert({
-      id: req.params.id,
+    const book = await models.book.findOne({ where: { id: req.params.id } })
+    await book.update({
       status: 'deleted'
     })
     res.sendStatus(200)
