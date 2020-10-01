@@ -1,6 +1,5 @@
 module.exports = {
   telemetry: false,
-  mode: 'spa',
   server: {
     host: process.env.BASE_URL || '0.0.0.0',
     port: process.env.PORT || 5000
@@ -19,14 +18,6 @@ module.exports = {
     ]
   },
   loading: '@/components/loading.vue',
-  // loading: {
-  //   color: '#7898ad',
-  //   failedColor: '#ff0033',
-  //   continuous: true,
-  //   throttle: 300,
-  //   duration: 2000,
-  //   height: '4px'
-  // },
   loadingIndicator: {
     name: 'three-bounce',
     color: '#21222e',
@@ -35,9 +26,6 @@ module.exports = {
   css: [
     '@/assets/theme.scss',
     '@/assets/transitions.scss'
-  ],
-  // TODO could this be set to a function that returns an array of paths to each file in the plugins directory?
-  plugins: [
   ],
   buildModules: [
     '@nuxtjs/eslint-module'
@@ -63,7 +51,6 @@ module.exports = {
   },
   build: {
     extend (config, ctx) {
-      // show correct line numbers in browser console
       if (ctx.isDev) {
         config.devtool = ctx.isClient
           ? 'source-map'

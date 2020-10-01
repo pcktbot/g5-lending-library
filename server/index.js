@@ -9,20 +9,15 @@ const models = require('./models')
 const config = require('../nuxt.config.js')
 config.dev = process.env.NODE_ENV !== 'production'
 require('./routes')(app)
+
 async function start () {
   const nuxt = new Nuxt(config)
-
   const { host, port } = nuxt.options.server
-
   await nuxt.ready()
   if (config.dev) {
     const builder = new Builder(nuxt)
     await builder.build()
-  } else {
-    // require('appmetrics-zipkin')()
-    // require('appmetrics-prometheus').attach()
   }
-
   app.use(nuxt.render)
   models.sequelize.sync()
   app.listen(port, host)
@@ -31,4 +26,5 @@ async function start () {
     badge: true
   })
 }
+
 start()
