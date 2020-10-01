@@ -1,18 +1,9 @@
 <template>
   <b-container fluid class="px-0 contained">
-    <div class="taurus">
-      <b-img-lazy
-        src="/spirit-animal.png"
-        height="175"
-      />
-      <b-btn class="taurus__btn" @click="fetchBooks">
-        <b-icon-arrow-clockwise />
-      </b-btn>
-    </div>
     <b-row>
       <b-col>
         <b-collapse v-model="isCollapsed">
-          <intake />
+          <intake @on-add="fetchBooks" />
         </b-collapse>
         <b-btn class="rounded-0" block @click="isCollapsed = !isCollapsed">
           Add to Library
@@ -32,11 +23,10 @@
               :src="book.details.imgUrl"
               :alt="book.title"
               center
-              fluid-grow
             />
             {{ book.title }}
             <b-card-footer class="p-0 border-0">
-                <b-btn-group class="w-100">
+              <b-btn-group class="w-100">
                 <b-btn variant="outline-tertiary">
                   Reserve
                 </b-btn>
@@ -61,6 +51,12 @@ export default {
   components: {
     Intake
   },
+  async asyncData({ $axios }) {
+    const library = await $axios
+      .$get('api/v1/library')
+      .then(res => res.map(b => ({ isBusy: false, ...b })))
+    return { library }
+  },
   data() {
     return {
       isCollapsed: false,
@@ -78,7 +74,7 @@ export default {
     dropBook(id) {
       if (id) {
         this.$axios
-          .$delete(`api/v1/book/${id}`)
+          .$put(`api/v1/book/${id}`, { status: 'deleted' })
           .then(res => this.$emit('res', res))
       }
     }

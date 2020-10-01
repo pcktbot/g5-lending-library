@@ -27,11 +27,11 @@ $body-bg: RGBA(242, 242, 242, 1.00);
     top: -1px !important;
   }
 }
-.card-columns {
-  column-count: 2;
-  column-gap: 0.25em;
-  grid-column-start: auto;
-}
+// .card-columns {
+//   column-count: 2;
+//   column-gap: 0.25em;
+//   grid-column-start: auto;
+// }
 .flip-vertical-right {
   animation: flip-vertical-right 1s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
 }

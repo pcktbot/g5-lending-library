@@ -2,7 +2,8 @@
   <b-card no-body>
     <b-modal id="add-modal" centered @ok="addToLibrary">
       <b-card>
-        You are adding {{ book }}.
+        You are adding {{ book.title }}.
+        <b-img-lazy :src="book.imgUrl" />
       <b-form-group label="Who are you?">
         <b-form-input v-model="user" />
       </b-form-group>
@@ -98,6 +99,9 @@ export default {
           })
           .then((res) => {
             this.library = res
+          })
+          .finally(() => {
+            this.$emit('on-add')
           })
       }
     }
